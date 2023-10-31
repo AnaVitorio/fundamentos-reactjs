@@ -1,2 +1,3 @@
-# fundamentos-reactjs
-Repositório para estudos fundamentos reactjs
+# React + Vite
+
+Repositório para estudos iniciais de ReactJS
