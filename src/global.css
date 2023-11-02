@@ -11,7 +11,7 @@
     --green-500: #00875f
 }
 
-//Estilos globais
+/* Estilos Globais */
 * {
     margin: 0;
     padding: 0;
@@ -21,7 +21,8 @@
 body {
     background: var(--gray-900);
     color:  var(--gray-300);
-    -webkit-font-smoothing: antialiased; //padronização afinação das fontes nos navegadores que utilizam webkit
+    /*padronização afinação das fontes nos navegadores que utilizam webkit. */
+    -webkit-font-smoothing: antialiased; 
 }
 
 body, input, textarea, button {
