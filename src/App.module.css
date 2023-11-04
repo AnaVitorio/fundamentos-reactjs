@@ -11,3 +11,16 @@
 
 
 }
+
+/* Responsividade Para dispositivos mobile */
+@media (max-width: 768px){
+    html{
+        font-size: 87.5%;
+    }
+    .wrapper{
+        /* Meu grid só vai ter 1 coluna agora */
+        grid-template-columns: 1fr;
+
+    }
+}
+
