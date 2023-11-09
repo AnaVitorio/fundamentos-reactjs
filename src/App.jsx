@@ -4,6 +4,40 @@ import styles from "./App.module.css";
 import { Sidebar } from "./components/Sidebar";
 import { Post } from "./components/Post";
 
+const posts = [
+  {
+    id: 1,
+    author:{
+      avatarUrl: "https://github.com/AnaVitorio.png",
+      name: "Ana Carolina",
+      role: "Analista de TI"
+    },
+    content: [
+      {type: 'paragraph', content:"Fala galeraa 👋,"},
+      {type: 'paragraph', content:"Acabei de subir mais um projeto no meu portifolio. É um rojeto que fiz no NLW Return, evento da Rocketseat. O nome do projeto é DoctorCare 🚀. "},
+      {type: 'link', content:" jane.design/doctorcare"}
+    ],
+
+    pusblisheAt: new Date('2023-11-06 18:00:00')
+  },
+
+  {
+    id: 2,
+    author:{
+      avatarUrl: "https://github.com/AnaVitorio.png",
+      name: "Ana Carolina",
+      role: "Analista de TI"
+    },
+    content: [
+      {type: 'paragraph', content:"Fala galeraa 👋,"},
+      {type: 'paragraph', content:"Acabei de subir mais um projeto no meu portifolio. É um rojeto que fiz no NLW Return, evento da Rocketseat. O nome do projeto é DoctorCare 🚀. "},
+      {type: 'link', content:" jane.design/doctorcare"}
+    ],
+
+    pusblisheAt: new Date('2023-11-04 18:00:00')
+  }
+]
+
 export function App() {
   return (
     <div>
@@ -11,11 +45,15 @@ export function App() {
       <div className={styles.wrapper}>
         <Sidebar/>
         <main>
-          <Post
-            author="Ana"
-            content="Lorem ipsum dolor sit amet consectetur adipisicing elit. Cumque eaque minus reiciendis molestias dignissimos cupiditate vero accusamus reprehenderit, repudiandae, cum maiores! Dolorum, nulla sapiente itaque et provident corrupti natus animi."
-          />
-          <Post author="Diego" content="Conteúdo 2" />
+          {posts.map(post =>{
+            return (
+              <Post 
+                author={post.author} 
+                content={post.content}
+                pusblisheAt={post.pusblisheAt}
+                />
+            )
+          })}
         </main>
       </div>
     </div>

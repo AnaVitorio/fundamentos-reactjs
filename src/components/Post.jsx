@@ -1,42 +1,50 @@
+import { useState } from "react";
 import { Avatar } from "./Avatar";
 import { Comment } from "./Comment";
 import styles from "./Post.module.css";
+import { format, formatDistanceToNow } from "date-fns";
 
-export function Post() {
+export function Post({author, pusblisheAt, content}) {
+  const pusblisheDateFormated = format(pusblisheAt, "d 'de' LLLL 'às' HH:mm'h'")
+  const dataPublicacaoRelativaAgora = formatDistanceToNow(pusblisheAt, {
+    addSuffix: true
+  })
+  const [comentarios, setComentarios] = useState([1, 2]);
+
+  function handleCriarNovoComentario(){
+    event.preventDefault()
+    setComentarios([...comentarios, comentarios.length + 1] )
+  }
+
   return (
     <article className={styles.post}>
       <header>
         <div className={styles.author}>
           <Avatar
-            src="https://github.com/AnaVitorio.png"
+            src={author.avatarUrl}
           />
-          <div className="authorInfo">
-            <strong>Ana Carolina</strong>
-            <span>Analista de TI</span>
+          <div className={styles.authorInfo}>
+            <strong>{author.name}</strong>
+            <span>{author.role}</span>
           </div>
         </div>
 
-        <time title="03 de novembro as 21:51" dateTime="2023-11-03">
-          Publicado há 1h
+        <time title={pusblisheDateFormated} dateTime={pusblisheAt.toISOString()}>
+        {dataPublicacaoRelativaAgora}
         </time>
       </header>
 
       <div className={styles.content}>
-        <p>
-            Fala galeraa 👋 Acabei de subir mais um projeto no meu portifa. É um 
-        </p>
-        <p>
-            projeto que fiz no NLW Return, evento da Rocketseat. O nome do projeto é DoctorCare 🚀.
-        </p>
-        <p><a href="#">jane.design/doctorcare</a></p>
-        <p>
-            <a href="#">#novoprojeto</a>{" "}
-            <a href="#">#nlw</a>{" "}
-            <a href="#">#rocketseat</a>{" "}
-        </p>
+        {content.map(linha =>{
+          if(linha.type === 'paragraph'){
+            return <p>{linha.content}</p>
+          } else if(linha.type === 'link'){
+            return <p> <a href="">{linha.content}</a></p>
+          }
+        })}
       </div>
 
-      <form className={styles.commentFarm}>
+      <form onSubmit={handleCriarNovoComentario} className={styles.commentFarm}>
         <strong>Deixe seu feedback</strong>
         <textarea placeholder="Deixe seu comentário"/>
 
@@ -47,7 +55,9 @@ export function Post() {
       </form>
 
       <div className={styles.commentList}>
-        <Comment/>
+        {comentarios.map(item =>{
+          return(<Comment/>)
+        })}
       </div>
     </article>
   );
