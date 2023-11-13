@@ -5,15 +5,27 @@ import styles from "./Post.module.css";
 import { format, formatDistanceToNow } from "date-fns";
 
 export function Post({author, pusblisheAt, content}) {
+
+  const [comentarios, setComentarios] = useState(["Muito bom Devon, parabéns!! 👏👏"]);
+  const [novoComentarioTexto, setNovoComentarioTexto] = useState('');
+
   const pusblisheDateFormated = format(pusblisheAt, "d 'de' LLLL 'às' HH:mm'h'")
+
+  //Calcula a diferença da data atual menos a data passado como primeiro parâmetro
   const dataPublicacaoRelativaAgora = formatDistanceToNow(pusblisheAt, {
     addSuffix: true
   })
-  const [comentarios, setComentarios] = useState([1, 2]);
+  
 
-  function handleCriarNovoComentario(){
+  function handleCriarNovoComentario(event){
     event.preventDefault()
-    setComentarios([...comentarios, comentarios.length + 1] )
+    setComentarios([...comentarios, novoComentarioTexto])
+    setNovoComentarioTexto('')
+  }
+
+
+  function handleNovoComentarioTexto(event){
+    setNovoComentarioTexto(event.target.value)
   }
 
   return (
@@ -46,7 +58,10 @@ export function Post({author, pusblisheAt, content}) {
 
       <form onSubmit={handleCriarNovoComentario} className={styles.commentFarm}>
         <strong>Deixe seu feedback</strong>
-        <textarea placeholder="Deixe seu comentário"/>
+        <textarea 
+          placeholder="Deixe seu comentário" 
+          onChange={handleNovoComentarioTexto}
+          value={novoComentarioTexto}/>
 
         <footer>
             <button type="submit">Publicar</button>
@@ -56,7 +71,7 @@ export function Post({author, pusblisheAt, content}) {
 
       <div className={styles.commentList}>
         {comentarios.map(item =>{
-          return(<Comment/>)
+          return(<Comment conteudo={item}/>)
         })}
       </div>
     </article>
