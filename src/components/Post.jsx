@@ -38,6 +38,12 @@ export function Post({ author, pusblisheAt, content }) {
     setComentarios(novaListaComentarios);
   }
 
+  const novoComentarioVazio = novoComentarioTexto.length === 0;
+
+  function handleComentarioInvalido(event) {
+    event.target.setCustomValidity('Esse campo é obrigatório!');
+  }
+
   return (
     <article className={styles.post}>
       <header>
@@ -78,10 +84,12 @@ export function Post({ author, pusblisheAt, content }) {
           placeholder="Deixe seu comentário"
           onChange={handleNovoComentarioTexto}
           value={novoComentarioTexto}
+          required
+          onInvalid={handleComentarioInvalido}
         />
 
         <footer>
-          <button type="submit">Publicar</button>
+          <button disabled={novoComentarioVazio} type="submit">Publicar</button>
         </footer>
       </form>
 
