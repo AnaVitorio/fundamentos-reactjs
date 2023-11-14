@@ -12,7 +12,12 @@ export function Comment(props) {
   }
 
   function handleAplaudir(){
-    setAplaudir(aplaudir + 1);
+    // sempre que precisamos atualizar o valor de um estado
+    // E esse valor depende do anterior e legal utilizar
+    // esse padrão de função dentro do setState
+    setAplaudir((state) =>{
+      return state + 1;
+    });
   }
 
   return (
